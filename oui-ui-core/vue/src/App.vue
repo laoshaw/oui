@@ -44,7 +44,9 @@ export default {
       if (lang === 'zh') lang = 'zh-cn'
 
       this.$rpc.call('oui', 'load_locales', { locale: lang }).then(locales => {
-        locales.forEach(locale => this.$i18n.mergeLocaleMessage(lang, locale))
+        for (const property in locales) {
+          this.$i18n.mergeLocaleMessage(lang, locales[property])
+        }
         this.$i18n.locale = lang
         this.loaded = true
       })
